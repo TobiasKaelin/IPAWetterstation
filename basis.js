@@ -59,7 +59,7 @@ http.createServer(function (req, res) {                                         
         });    
       }
       if(req.url === '/1h'){                                                                                          //Falls ip von Basisstation/1h aufgerufen wird:
-        fs.readFile("1h.html", "utf-8", function(err, html){                                         //Lese Daten von 1h.html Datei
+        fs.readFile("1h.html", "utf-8", function(err, html){                                                          //Lese Daten von 1h.html Datei
           
     
           
@@ -68,7 +68,7 @@ http.createServer(function (req, res) {                                         
         });    
       }
       if(req.url === '/24h'){                                                                                         //Falls ip von Basisstation/24h aufgerufen wird:
-        fs.readFile("24h.html", "utf-8", function(err, html){                                        //Lese Daten von 24h.html Datei
+        fs.readFile("24h.html", "utf-8", function(err, html){                                                         //Lese Daten von 24h.html Datei
           
     
           
@@ -86,16 +86,16 @@ http.createServer(function (req, res) {                                         
 console.log("Server gestartet auf Port "+80);                                                                       //Bestätigung in Konsole falls Server gestartet ist
 var serial = new Serial();                                                                                          // Variable für Daten über den Seriellen-Eingang
 serial.open(() => {                                 
-  var buffer = "";                                                                                                 //Buffer hinzufügen
-  serial.on('data', function(datafromserial) {                                                                     //Daten einlesen
+  var buffer = "";                                                                                                  //Buffer hinzufügen
+  serial.on('data', function(datafromserial) {                                                                      //Daten einlesen
     try {
-      buffer += datafromserial;                                                                                    //Daten mit Buffer kombinieren
+      buffer += datafromserial;                                                                                     //Daten mit Buffer kombinieren
      
-      if(buffer.indexOf("\n") >= 0){                                                                               //Pruft ob Buffer leer ist.
-        var packets = buffer.split("\n");                                                                          //Trennt die einkommenden Daten in Pakete
+      if(buffer.indexOf("\n") >= 0){                                                                                //Pruft ob Buffer leer ist.
+        var packets = buffer.split("\n");                                                                           //Trennt die einkommenden Daten in Pakete
         for(var i = 0; i < (packets.length - 1); i++){     
           if(packets[i] !== "" && packets[i] !== " "){
-            var time = Date.now();                                                                                 //Aktuelles Datum in Variable schreiben
+            var time = Date.now();                                                                                  //Aktuelles Datum in Variable schreiben
             
 
            
