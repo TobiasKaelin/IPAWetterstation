@@ -1,0 +1,227 @@
+
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>                   
+    <script type="text/javascript">                                                                               //Quelle für Grafiken 
+  
+  
+  var Wetter = "";                                                                                                //Variable alle Wetterdaten
+  var TempTime = [];                                                                                              //Variable Temperatur und Zeit  
+  var HumTime = [];                                                                                               //Variable Feuchtigkeit und Zeit
+  var PresTime = [];                                                                                              //Variable Luftdruck und Zeit
+  var WindTime = [];                                                                                              //Variable Windgeschwindigkeit und Zeit
+  var RainTime = [];                                                                                              //Variable Regenmenge und Zeit
+ 
+  google.charts.load('current', {packages: ['corechart', 'line']});                                               //Lade Grafiken
+  google.charts.setOnLoadCallback(loadData);
+  
+  function drawTempChart(array) {                                                                                 //Zeichne Temperatur Grafik
+    var data = "";
+    data = new google.visualization.DataTable();
+    data.addColumn('date', 'Zeit');                                                                               //Beschriftung
+    data.addColumn('number', 'Temperatur');                                                                       //
+  
+  
+    data.addRows(array);                                                                                          //Wetterdaten einfügen
+  
+    var options = {
+      colors: ['#B40404'],                                                                                        //Farbe deklarieren
+      hAxis: {
+        format: "HH.mm",                                                                                          //Datumsformat deklarieren
+        title: 'Zeit'
+      },
+      vAxis: {
+        title: 'Temperatur in °C'
+      }
+    };
+  
+    var chart = new google.visualization.LineChart(document.getElementById('temp_chart_div'));               
+    chart.clearChart(); 
+    chart.draw(data, options);
+  }
+  
+  function drawHumChart(array) {
+    var data = "";
+    data = new google.visualization.DataTable();
+    data.addColumn('date', 'Zeit');
+    data.addColumn('number', 'Feuchtigkeit');
+  
+  
+    data.addRows(array);
+  
+    var options = {
+      hAxis: {
+        format: "HH.mm",
+        title: 'Zeit'
+      },
+      vAxis: {
+        title: 'Luftfeuchtigkeit in %'
+      }
+    };
+  
+    var chart = new google.visualization.LineChart(document.getElementById('hum_chart_div'));
+    chart.clearChart(); 
+    chart.draw(data, options);
+  }
+  
+  function drawPresChart(array) {
+    var data = "";
+    data = new google.visualization.DataTable();
+    data.addColumn('date', 'Zeit');
+    data.addColumn('number', 'Luftdruck');
+  
+  
+    data.addRows(array);
+  
+    var options = {
+      colors: ['#000000'],
+      hAxis: {
+        format: "HH.mm",
+        title: 'Zeit'
+      },
+      vAxis: {
+        title: 'Luftdruck in hPa '   
+      }
+    };
+  
+    var chart = new google.visualization.LineChart(document.getElementById('pres_chart_div'));
+    chart.clearChart(); 
+    chart.draw(data, options);
+  }
+
+  function drawWindChart(array) {
+    var data = "";
+    data = new google.visualization.DataTable();
+    data.addColumn('date', 'Zeit');
+    data.addColumn('number', 'Windgeschwindigkeit');
+  
+  
+    data.addRows(array);
+  
+    var options = {
+      colors: ['#04B404'],
+      hAxis: {
+        format: "HH.mm",
+        title: 'Zeit'
+      },
+      vAxis: {
+        title: 'Windgeschwindigkeit'
+      }
+    };
+  
+    var chart = new google.visualization.LineChart(document.getElementById('wind_chart_div'));
+    chart.clearChart(); 
+    chart.draw(data, options);
+  }
+
+  function drawRainChart(array) {
+    var data = "";
+    data = new google.visualization.DataTable();
+    data.addColumn('date', 'Zeit');
+    data.addColumn('number', 'Regen');
+  
+  
+    data.addRows(array);
+  
+    var options = {
+      colors: ['#2EFEF7'],
+      hAxis: {
+        format: "HH.mm",
+        title: 'Zeit'
+      },
+      vAxis: {
+        title: 'Regenmenge'
+      }
+    };
+  
+    var chart = new google.visualization.LineChart(document.getElementById('rain_chart_div'));
+    chart.clearChart(); 
+    chart.draw(data, options);
+  }
+ 
+  function loadData(){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        // Typical action to be performed when the document is ready:
+        Wetter = xhttp.responseText;
+        Wetter = JSON.parse(Wetter);
+        var tt;
+        for (tt = 0; tt < Wetter.length; tt++){
+          TempTime.push([new Date(Wetter[tt].time) , Wetter[tt].t]);
+          HumTime.push([new Date(Wetter[tt].time) , Wetter[tt].h]);
+          PresTime.push([new Date(Wetter[tt].time) , Wetter[tt].p]);
+          WindTime.push([new Date(Wetter[tt].time) , Wetter[tt].w]);
+          RainTime.push([new Date(Wetter[tt].time) , Wetter[tt].r]);
+  
+        }
+  
+        drawTempChart(TempTime);
+        drawHumChart(HumTime);
+        drawPresChart(PresTime);
+        drawWindChart(WindTime);
+        drawRainChart(RainTime);
+      }
+    };
+  
+    xhttp.open("GET", "http://192.168.2.67/api/1h", true);
+    xhttp.send();
+  }
+  
+  
+  setInterval(function(){
+  //loadData();
+  }, 5000);
+  
+  
+  
+  
+  
+  </script>
+  
+  
+  <style type="text/css">
+  .live div{
+    float:left;
+  }
+  .verlauf div {
+    clear: both;
+  }
+  div.center{
+      text-align: center;
+  }
+  
+  </style>
+  
+  
+  </head>
+  <body bgcolor=#F2F2F2>
+  <!-- Identify where the chart should be drawn. -->
+  <div class="center"><font size = "7">Wetterdaten der letzten Stunde</font><br>
+    <br>
+    <br>
+
+      <form>
+        <input type="button" value="Wetterdaten der gesamten Zeit" onclick="window.location.href='http://192.168.2.67/home'" />
+      </form> 
+
+      <form>
+          <input type="button" value="Wetterdaten der letzten Stunde" onclick="window.location.href='http://192.168.2.67/1h'" />
+        </form> 
+        <form>
+            <input type="button" value="Wetterdaten der letzten 24 Stunden" onclick="window.location.href='http://192.168.2.67/24h'" />
+          </form> 
+  <div class="verlauf">
+    <div id="temp_chart_div" ></div>
+    <div id="hum_chart_div" ></div>
+    <div id="pres_chart_div" ></div>
+    <div id="wind_chart_div"></div>
+    <div id="rain_chart_div"></div>
+  </div>
+  <br>
+<br>
+<br>
+<br>
+<br>
+<div class="center"><font size ="2">IPA Tobias Kaelin MM15a expert Frank GmbH</font>
+</div>
+  </body>
