@@ -8,14 +8,14 @@ var maxentries = 10000;                                                         
 
 http.createServer(function (req, res) {                                                                                   //Serverobjekt erstellen
 
-  fs.readFile('/home/pi/myjsonfile.json', "utf-8", function(err, datafromfile) {                                          //Liest File mit Wetterdateneinträge von Desktop 
+  fs.readFile('/home/pi/myjsonfile.json', "utf-8", function(err, datafromfile) {                                          //Liest File mit Wetterdateneinträge von Verzeichnis
     if (err) {                                                                                                            // Falls Error -> Benachrichtigung und Fehlermeldung in Konsole
       console.log("Datei konnte nicht gelesen werden: "+err);                                                             //
     } else {
       console.log("Daten ausgelesen:")                                                                                    // Ansonsten Bestätigung in Konsole
       
      var Wetter = JSON.parse(datafromfile);                                                                               //String in JavaScript Objekt umwandeln.
-      S
+      
           
       console.log(req.url)                                                                                                //Benachrichtigung in Konsole welche Seite aufgerufen wird
 
