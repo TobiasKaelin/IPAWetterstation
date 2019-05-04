@@ -14,14 +14,14 @@
   google.charts.load('current', {packages: ['corechart', 'line']});                                               //Lade Grafiken
   google.charts.setOnLoadCallback(loadData);
   
-  function drawTempChart(array) {                                                                                 //Zeichne Temperatur Grafik
+  function drawTempChart(array) {                                                                                 //Funktion um Grafik zu zeichnen
     var data = "";
     data = new google.visualization.DataTable();
     data.addColumn('date', 'Zeit');                                                                               //Beschriftung
     data.addColumn('number', 'Temperatur');                                                                       //
   
   
-    data.addRows(array);                                                                                          //Wetterdaten einfügen
+    data.addRows(array);                                                                                          //Reihe hinzufügen
   
     var options = {
       colors: ['#B40404'],                                                                                        //Farbe deklarieren
@@ -29,53 +29,53 @@
         format: "HH.mm",                                                                                          //Datumsformat deklarieren
         title: 'Zeit'
       },
-      vAxis: {
+      vAxis: {                                                                                                    
         title: 'Temperatur in °C'
       }
     };
   
-    var chart = new google.visualization.LineChart(document.getElementById('temp_chart_div'));               
-    chart.clearChart(); 
-    chart.draw(data, options);
+    var chart = new google.visualization.LineChart(document.getElementById('temp_chart_div'));                    //Grafik von Libary laden                  
+    chart.clearChart();                                                                                           //Grafik leeren
+    chart.draw(data, options);                                                                                    //Grafik zeichnen und füllen
   }
   
-  function drawHumChart(array) {
+  function drawHumChart(array) {                                                                                  //Funktion um Grafik zu Zeichnen                                                            
     var data = "";
     data = new google.visualization.DataTable();
-    data.addColumn('date', 'Zeit');
-    data.addColumn('number', 'Feuchtigkeit');
+    data.addColumn('date', 'Zeit');                                                                               // Beschriftung
+    data.addColumn('number', 'Feuchtigkeit');                                                                     //
   
   
-    data.addRows(array);
+    data.addRows(array);                                                                                          //Reihe hinzufügen
   
-    var options = {
+    var options = {                                     
       hAxis: {
-        format: "HH.mm",
+        format: "HH.mm",                                                                                          //Datumsformat deklarieren
         title: 'Zeit'
       },
       vAxis: {
-        title: 'Luftfeuchtigkeit in %'
+        title: 'Luftfeuchtigkeit in %'          
       }
     };
   
-    var chart = new google.visualization.LineChart(document.getElementById('hum_chart_div'));
-    chart.clearChart(); 
-    chart.draw(data, options);
+    var chart = new google.visualization.LineChart(document.getElementById('hum_chart_div'));                     //Grafik von Libary laden
+    chart.clearChart();                                                                                           //Grafik leeren
+    chart.draw(data, options);                                                                                    //Grafik zeichnen und füllen
   }
   
-  function drawPresChart(array) {
+  function drawPresChart(array) {                                                                                 //Funktion um Grafik zu zeichnen
     var data = "";
     data = new google.visualization.DataTable();
-    data.addColumn('date', 'Zeit');
-    data.addColumn('number', 'Luftdruck');
+    data.addColumn('date', 'Zeit');                                                                                //Beschriftung
+    data.addColumn('number', 'Luftdruck');                                                                         //
   
   
-    data.addRows(array);
+    data.addRows(array);                                                                                           //Datenreihe hinzufügen
   
     var options = {
-      colors: ['#000000'],
+      colors: ['#000000'],                                                                                         //Farbe deklarieren
       hAxis: {
-        format: "HH.mm",
+        format: "HH.mm",                                                                                           //Datumsformat deklarieren
         title: 'Zeit'
       },
       vAxis: {
@@ -83,24 +83,24 @@
       }
     };
   
-    var chart = new google.visualization.LineChart(document.getElementById('pres_chart_div'));
-    chart.clearChart(); 
-    chart.draw(data, options);
+    var chart = new google.visualization.LineChart(document.getElementById('pres_chart_div'));                     //Grafik von Libary laden
+    chart.clearChart();                                                                                            //Grafik leeren
+    chart.draw(data, options);                                                                                     //Grafik zeichnen und füllen
   }
 
-  function drawWindChart(array) {
+  function drawWindChart(array) {                                                                                  //Funktion um Grafik zu zeichnen
     var data = "";
     data = new google.visualization.DataTable();
-    data.addColumn('date', 'Zeit');
-    data.addColumn('number', 'Windgeschwindigkeit');
+    data.addColumn('date', 'Zeit');                                                                                //Beschriftung
+    data.addColumn('number', 'Windgeschwindigkeit');                                                               //
   
   
-    data.addRows(array);
+    data.addRows(array);                                                                                           //Datenreihe hinzufügen
   
     var options = {
-      colors: ['#04B404'],
+      colors: ['#04B404'],                                                                                         // Farbe deklarieren
       hAxis: {
-        format: "HH.mm",
+        format: "HH.mm",                                                                                           //Datumsformat deklarieren
         title: 'Zeit'
       },
       vAxis: {
@@ -108,24 +108,24 @@
       }
     };
   
-    var chart = new google.visualization.LineChart(document.getElementById('wind_chart_div'));
-    chart.clearChart(); 
-    chart.draw(data, options);
+    var chart = new google.visualization.LineChart(document.getElementById('wind_chart_div'));                     //Grafik von Libary laden
+    chart.clearChart();                                                                                            //Grafik leeren
+    chart.draw(data, options);                                                                                     //Grafik zeichnen und füllen
   }
 
-  function drawRainChart(array) {
+  function drawRainChart(array) {                                                                                  //Funktion um Grafik zu zeichnen
     var data = "";
     data = new google.visualization.DataTable();
-    data.addColumn('date', 'Zeit');
-    data.addColumn('number', 'Regen');
+    data.addColumn('date', 'Zeit');                                                                                //Beschriftung
+    data.addColumn('number', 'Regen');                                                                             //
   
   
-    data.addRows(array);
+    data.addRows(array);                                                                                           //Datenreihe hinzufügen                                              
   
-    var options = {
-      colors: ['#2EFEF7'],
+    var options = {   
+      colors: ['#2EFEF7'],                                                                                         //Farbe deklarieren
       hAxis: {
-        format: "HH.mm",
+        format: "HH.mm",                                                                                           //Datumsformat deklarieren
         title: 'Zeit'
       },
       vAxis: {
@@ -133,43 +133,42 @@
       }
     };
   
-    var chart = new google.visualization.LineChart(document.getElementById('rain_chart_div'));
-    chart.clearChart(); 
-    chart.draw(data, options);
+    var chart = new google.visualization.LineChart(document.getElementById('rain_chart_div'));                    //Grafik von Libary laden
+    chart.clearChart();                                                                                           //Grafik leeren
+    chart.draw(data, options);                                                                                    //Grafik zeichnen und füllen
   }
  
-  function loadData(){
+  function loadData(){                                                                                            //Funktion um Wetterdaten zu laden
     var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        // Typical action to be performed when the document is ready:
-        Wetter = xhttp.responseText;
-        Wetter = JSON.parse(Wetter);
+    xhttp.onreadystatechange = function() { 
+      if (this.readyState == 4 && this.status == 200) {                                                           //Falls Dokument bereit ist:
+      
+        Wetter = xhttp.responseText;                                                                              //Daten im Dokument Variable zuweisen
+        Wetter = JSON.parse(Wetter);                                                                              //Daten im Dokument von String zu Objekt umwandeln
         var tt;
-        for (tt = 0; tt < Wetter.length; tt++){
-          TempTime.push([new Date(Wetter[tt].time) , Wetter[tt].t]);
-          HumTime.push([new Date(Wetter[tt].time) , Wetter[tt].h]);
-          PresTime.push([new Date(Wetter[tt].time) , Wetter[tt].p]);
-          WindTime.push([new Date(Wetter[tt].time) , Wetter[tt].w]);
-          RainTime.push([new Date(Wetter[tt].time) , Wetter[tt].r]);
+        for (tt = 0; tt < Wetter.length; tt++){                                                                   //Fügt neue Wetterdaten an Objekt an
+          TempTime.push([new Date(Wetter[tt].time) , Wetter[tt].t]);                                              //
+          HumTime.push([new Date(Wetter[tt].time) , Wetter[tt].h]);                                               //
+          PresTime.push([new Date(Wetter[tt].time) , Wetter[tt].p]);                                              //
+          WindTime.push([new Date(Wetter[tt].time) , Wetter[tt].w]);                                              //
+          RainTime.push([new Date(Wetter[tt].time) , Wetter[tt].r]);                                              //
   
         }
   
-        drawTempChart(TempTime);
-        drawHumChart(HumTime);
-        drawPresChart(PresTime);
-        drawWindChart(WindTime);
-        drawRainChart(RainTime);
+        drawTempChart(TempTime);                                                                                  //Startet funktion um Temperaturgrafik zu zeichnen
+        drawHumChart(HumTime);                                                                                    //Startet funktion um Feuchtigkeitsgrafik zu zeichnen
+        drawPresChart(PresTime);                                                                                  //Startet funktion um Luftdruckgrafik zu zeichnen
+        drawWindChart(WindTime);                                                                                  //Startet funktion um Windgrafik zu zeichnen
+        drawRainChart(RainTime);                                                                                  //Startet funktion um Regengrafik zu zeichnen
       }
     };
   
-    xhttp.open("GET", "http://192.168.2.67/api/1h", true);
+    xhttp.open("GET", "http://192.168.2.67/api/1h", true);                                                        //Gespeicherte Daten von api Seite lesen
     xhttp.send();
   }
   
   
-  setInterval(function(){
-  //loadData();
+  setInterval(function(){                                                                                         
   }, 5000);
   
   
@@ -178,13 +177,15 @@
   
   </script>
   
+
+                                            
   
-  <style type="text/css">
+  <style type="text/css">                                                                                   
   .live div{
-    float:left;
-  }
+    float:left;                                                                                         
+  }    
   .verlauf div {
-    clear: both;
+    clear: both;                                                                                                                     /*CSS Code um Seite visuell zu gestalten*/     
   }
   div.center{
       text-align: center;
@@ -194,24 +195,24 @@
   
   
   </head>
-  <body bgcolor=#F2F2F2>
-  <!-- Identify where the chart should be drawn. -->
-  <div class="center"><font size = "7">Wetterdaten der letzten Stunde</font><br>
+  <body bgcolor=#F2F2F2>                                                                                                             <!--Hintergrundfarbe ändern-->   
+  
+  <div class="center"><font size = "7">Wetterdaten der letzten Stunde</font><br>                                                     <!--Titel, Grösse 7, zentriert-->
     <br>
     <br>
 
       <form>
-        <input type="button" value="Wetterdaten der gesamten Zeit" onclick="window.location.href='http://192.168.2.67/home'" />
+       <input type="button" value="Wetterdaten der gesamten Zeit" onclick="window.location.href='http://192.168.2.67/home'" />        <!--Verlinkung mit Button-->
       </form> 
 
       <form>
-          <input type="button" value="Wetterdaten der letzten Stunde" onclick="window.location.href='http://192.168.2.67/1h'" />
+          <input type="button" value="Wetterdaten der letzten Stunde" onclick="window.location.href='http://192.168.2.67/1h'" />      <!--Verlinkung mit Button-->
         </form> 
         <form>
-            <input type="button" value="Wetterdaten der letzten 24 Stunden" onclick="window.location.href='http://192.168.2.67/24h'" />
+            <input type="button" value="Wetterdaten der letzten 24 Stunden" onclick="window.location.href='http://192.168.2.67/24h'" />   <!--Verlinkung mit Button-->
           </form> 
   <div class="verlauf">
-    <div id="temp_chart_div" ></div>
+    <div id="temp_chart_div" ></div>    <!--Alle Grafiken anzeigen lassen-->
     <div id="hum_chart_div" ></div>
     <div id="pres_chart_div" ></div>
     <div id="wind_chart_div"></div>
@@ -222,6 +223,6 @@
 <br>
 <br>
 <br>
-<div class="center"><font size ="2">IPA Tobias Kaelin MM15a expert Frank GmbH</font>
+<div class="center"><font size ="2">IPA Tobias Kaelin MM15a expert Frank GmbH</font>            <!--Fusszeile-->
 </div>
   </body>

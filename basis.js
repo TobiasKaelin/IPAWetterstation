@@ -15,7 +15,7 @@ http.createServer(function (req, res) {                                         
       console.log("Daten ausgelesen:")                                                                                    // Ansonsten Bestätigung in Konsole
       
      var Wetter = JSON.parse(datafromfile);                                                                               //String in JavaScript Objekt umwandeln.
-      
+      S
           
       console.log(req.url)                                                                                                //Benachrichtigung in Konsole welche Seite aufgerufen wird
 
@@ -28,7 +28,7 @@ http.createServer(function (req, res) {                                         
                                                                                                                           
         var oneh = (Date.now() - 3600000);                                                                                //Aktuelle Zeit in ms seit 01.01.1970 - 1h in ms
         var tt;                                           
-        for (tt = Wetter.length-1; tt >= 0 ; tt--){                                                                       //Löscht Einträge, welche älter als 1h sind
+        for (tt = Wetter.length-1; tt >= 0 ; tt--){                                                                       //Wählt nur Einträge der letzten Stunde an
           if(Wetter[tt].time < oneh){                                                                                     //
             Wetter.splice(tt, 1)                                                                                          //
           }                                                
@@ -40,7 +40,7 @@ http.createServer(function (req, res) {                                         
 
         var oneh = (Date.now() - 86400000);                                                                               //Aktuelle Zeit in ms seit 01.01.1970 - 24h in ms
         var tt;
-        for (tt = Wetter.length-1; tt >= 0 ; tt--){                                                                       //Löscht Einträge, welche älter als 24h sind
+        for (tt = Wetter.length-1; tt >= 0 ; tt--){                                                                       //Wählt nur Einträge der letzten 24 Stunden an
           if(Wetter[tt].time < oneh){
             Wetter.splice(tt, 1)
           }
