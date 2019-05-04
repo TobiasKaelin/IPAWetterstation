@@ -50,7 +50,7 @@ http.createServer(function (req, res) {                                         
       }
       
       if(req.url === '/home'){                                                                                          //Falls ip von Basisstation/home aufgerufen wird:
-        fs.readFile("/home/pi/Desktop/index.html", "utf-8", function(err, html){                                        //Lese Daten von index.html Datei
+        fs.readFile("index.html", "utf-8", function(err, html){                                        //Lese Daten von index.html Datei
           
     
           
@@ -59,7 +59,7 @@ http.createServer(function (req, res) {                                         
         });    
       }
       if(req.url === '/1h'){                                                                                          //Falls ip von Basisstation/1h aufgerufen wird:
-        fs.readFile("/home/pi/Desktop/1h.html", "utf-8", function(err, html){                                         //Lese Daten von 1h.html Datei
+        fs.readFile("1h.html", "utf-8", function(err, html){                                         //Lese Daten von 1h.html Datei
           
     
           
@@ -68,7 +68,7 @@ http.createServer(function (req, res) {                                         
         });    
       }
       if(req.url === '/24h'){                                                                                         //Falls ip von Basisstation/24h aufgerufen wird:
-        fs.readFile("/home/pi/Desktop/24h.html", "utf-8", function(err, html){                                        //Lese Daten von 24h.html Datei
+        fs.readFile("24h.html", "utf-8", function(err, html){                                        //Lese Daten von 24h.html Datei
           
     
           
