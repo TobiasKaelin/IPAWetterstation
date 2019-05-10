@@ -49,7 +49,7 @@ http.createServer(function (req, res) {                                         
         res.end();
       }
       
-      if(req.url === '/home'){                                                                                          //Falls ip von Basisstation/home aufgerufen wird:
+      if(req.url === '/home' || req.url === "" || req.url === "/"){                                                                                          //Falls ip von Basisstation/home aufgerufen wird:
         fs.readFile("index.html", "utf-8", function(err, html){                                        //Lese Daten von index.html Datei
           
     
