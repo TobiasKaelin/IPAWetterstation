@@ -90,7 +90,7 @@ serial.open(() => {
   serial.on('data', function(datafromserial) {                                                                      //Daten einlesen
     try {
       buffer += datafromserial;                                                                                     //Daten mit Buffer kombinieren
-     
+      console.log("Empfange Daten")
       if(buffer.indexOf("\n") >= 0){                                                                                //Pruft ob Buffer leer ist.
         var packets = buffer.split("\n");                                                                           //Trennt die einkommenden Daten in Pakete
         for(var i = 0; i < (packets.length - 1); i++){     
@@ -109,6 +109,8 @@ serial.open(() => {
               return;                                                         
             }
             obj.time = time
+                                                                                        
+            console.log("Daten erfolgreich Empfangen: ", obj);
         
             fs.readFile('/home/pi/myjsonfile.json', "utf-8", function(err, datafromfile) {                       //Lese Datei von SD Karte
               if (err) {                                                                                         //Falls Fehler:
