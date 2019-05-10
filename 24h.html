@@ -1,32 +1,32 @@
 
 <head>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>                           
+    <script type="text/javascript">                                                                                          //Quelle für Grafiken 
   
   
-  var Wetter = "";
-  var TempTime = [];
-  var HumTime = [];
-  var PresTime = [];
-  var WindTime = [];
-  var RainTime = [];
+  var Wetter = "";                                                                                                           //Variable alle Wetterdaten
+  var TempTime = [];                                                                                                         //Variable Temperatur und Zeit
+  var HumTime = [];                                                                                                          //Variable Feuchtigkeit und Zeit
+  var PresTime = [];                                                                                                         //Variable Luftdruck und Zeit
+  var WindTime = [];                                                                                                        //Variable Windgeschwindigkeit und Zeit
+  var RainTime = [];                                                                                                        //Variable Regenmenge und Zeit
  
-  google.charts.load('current', {packages: ['corechart', 'line']});
+  google.charts.load('current', {packages: ['corechart', 'line']});                                                         //Lade Grafiken
   google.charts.setOnLoadCallback(loadData);
   
   function drawTempChart(array) {
-    var data = "";
+    var data = "";                                                                                                          //Funktion um Grafik zu zeichnen
     data = new google.visualization.DataTable();
-    data.addColumn('date', 'Zeit');
-    data.addColumn('number', 'Temperatur');
+    data.addColumn('date', 'Zeit');                                                                                         //Beschriftung
+    data.addColumn('number', 'Temperatur');                                                                                 //
   
   
-    data.addRows(array);
+    data.addRows(array);                                                                                                    //Reihe hinzufügen
   
     var options = {
-      colors: ['#B40404'],
-      hAxis: {
-        format: "HH.mm",
+      colors: ['#B40404'],                                                                                                  //Farbe deklarieren
+      hAxis: {                                                                                                              
+        format: "HH.mm",                                                                                                    //Datumsformat deklarieren
         title: 'Zeit'
       },
       vAxis: {
@@ -34,23 +34,23 @@
       }
     };
   
-    var chart = new google.visualization.LineChart(document.getElementById('temp_chart_div'));
-    chart.clearChart(); 
-    chart.draw(data, options);
+    var chart = new google.visualization.LineChart(document.getElementById('temp_chart_div'));                               //Grafik von Libary laden    
+    chart.clearChart();                                                                                                      //Grafik leeren
+    chart.draw(data, options);                                                                                               //Grafik zeichnen und füllen
   }
   
-  function drawHumChart(array) {
+  function drawHumChart(array) {                                                                                              //Funktion um Grafik zu Zeichnen  
     var data = "";
     data = new google.visualization.DataTable();
-    data.addColumn('date', 'Zeit');
-    data.addColumn('number', 'Feuchtigkeit');
+    data.addColumn('date', 'Zeit');                                                                                           // Beschriftung
+    data.addColumn('number', 'Feuchtigkeit');                                                                                 // 
   
   
-    data.addRows(array);
+    data.addRows(array);                                                                                                      //Reihe hinzufügen
   
     var options = {
       hAxis: {
-        format: "HH.mm",
+        format: "HH.mm",                                                                                                      //Datumsformat deklarieren
         title: 'Zeit'
       },
       vAxis: {
@@ -58,24 +58,24 @@
       }
     };
   
-    var chart = new google.visualization.LineChart(document.getElementById('hum_chart_div'));
-    chart.clearChart(); 
-    chart.draw(data, options);
+    var chart = new google.visualization.LineChart(document.getElementById('hum_chart_div'));                                 //Grafik von Libary laden
+    chart.clearChart();                                                                                                       //Grafik leeren
+    chart.draw(data, options);                                                                                                //Grafik zeichnen und füllen
   }
   
-  function drawPresChart(array) {
+  function drawPresChart(array) {                                                                                             //Funktion um Grafik zu zeichnen
     var data = "";
-    data = new google.visualization.DataTable();
-    data.addColumn('date', 'Zeit');
-    data.addColumn('number', 'Luftdruck');
+    data = new google.visualization.DataTable();                  
+    data.addColumn('date', 'Zeit');                                                                                           //Beschriftung
+    data.addColumn('number', 'Luftdruck');                                                                                    //
   
   
-    data.addRows(array);
+    data.addRows(array);                                                                                                      //Datenreihe hinzufügen
   
     var options = {
-      colors: ['#000000'],
+      colors: ['#000000'],                                                                                                    //Farbe deklarieren
       hAxis: {
-        format: "HH.mm",
+        format: "HH.mm",                                                                                                      //Datumsformat deklarieren
         title: 'Zeit'
       },
       vAxis: {
@@ -83,22 +83,22 @@
       }
     };
   
-    var chart = new google.visualization.LineChart(document.getElementById('pres_chart_div'));
-    chart.clearChart(); 
-    chart.draw(data, options);
+    var chart = new google.visualization.LineChart(document.getElementById('pres_chart_div'));                                 //Grafik von Libary laden
+    chart.clearChart();                                                                                                        //Grafik leeren
+    chart.draw(data, options);                                                                                                 //Grafik zeichnen und füllen
   }
 
-  function drawWindChart(array) {
+  function drawWindChart(array) {                                                                                              //Funktion um Grafik zu zeichnen
     var data = "";
-    data = new google.visualization.DataTable();
-    data.addColumn('date', 'Zeit');
-    data.addColumn('number', 'Windgeschwindigkeit');
+    data = new google.visualization.DataTable();                                                                                           
+    data.addColumn('date', 'Zeit');                                                                                            //Beschriftung                                                           
+    data.addColumn('number', 'Windgeschwindigkeit');                                                                           //
   
   
-    data.addRows(array);
+    data.addRows(array);                                                                                                       //Datenreihe hinzufügen   
   
     var options = {
-      colors: ['#04B404'],
+      colors: ['#04B404'],                                                                                                     //Farbe deklarieren
       hAxis: {
         format: "HH.mm",
         title: 'Zeit'
