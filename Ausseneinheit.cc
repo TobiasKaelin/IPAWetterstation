@@ -1,11 +1,9 @@
-char                 databuffer[35];
-double               temp;
-
-//#define Wetterpin 8
-#include <ELECHOUSE_CC1101.h>
+char                 databuffer[35];                                                //Datenbuffer hinzugefügt
+double               temp;                                                          //Variable für Temperatur deklarieren
+#include <ELECHOUSE_CC1101.h>                                                       //Libary für Funkmodul einbinden
 
 
-void getBuffer()                                                                    //Get weather status data
+void getBuffer()                                                                                                  
 {
   int index;
   for (index = 0;index < 35;index ++)
@@ -25,7 +23,7 @@ void getBuffer()                                                                
   }
 }
 
-int transCharToInt(char *_buffer,int _start,int _stop)                               //char to int）
+int transCharToInt(char *_buffer,int _start,int _stop)                               //Konvertiert char zu int
 {
   int _index;
   int result = 0;
@@ -39,47 +37,47 @@ int transCharToInt(char *_buffer,int _start,int _stop)                          
   return result;
 }
 
-int WindDirection()                                                                  //Wind Direction
+int WindDirection()                                                                  //Windvariable erstellen
 {
   return transCharToInt(databuffer,1,3);
 }
 
-float WindSpeedAverage()                                                             //air Speed (1 minute)
+float WindSpeedAverage()                                                             //Windgeschwindigkeitsvariable erstellen
 {
   temp = 0.44704 * transCharToInt(databuffer,5,7);
   return temp;
 }
 
-float WindSpeedMax()                                                                 //Max air speed (5 minutes)
+float WindSpeedMax()                                                                 //Windgeschwindigkeitsmaximumvariable erstellen
 {
   temp = 0.44704 * transCharToInt(databuffer,9,11);
   return temp;
 }
 
-float Temperature()                                                                  //Temperature ("C")
+float Temperature()                                                                  //Temperaturvariable erstellen
 {
   temp = (transCharToInt(databuffer,13,15) - 32.00) * 5.00 / 9.00;
   return temp;
 }
 
-float RainfallOneHour()                                                              //Rainfall (1 hour)
+float RainfallOneHour()                                                              //1h Regenmengevariable erstellen
 {
   temp = transCharToInt(databuffer,17,19) * 25.40 * 0.01;
   return temp;
 }
 
-float RainfallOneDay()                                                               //Rainfall (24 hours)
+float RainfallOneDay()                                                               //24h Regenmengevariable erstellen
 {
   temp = transCharToInt(databuffer,21,23) * 25.40 * 0.01;
   return temp;
 }
 
-int Humidity()                                                                       //Humidity
+int Humidity()                                                                       //Luftfeuchtigskeitvariable erstellen
 {
   return transCharToInt(databuffer,25,26);
 }
 
-float BarPressure()                                                                  //Barometric Pressure
+float BarPressure()                                                                  //Luftdruckvariable erstellen
 {
   temp = transCharToInt(databuffer,28,32);
   return temp / 10.00;
@@ -87,59 +85,58 @@ float BarPressure()                                                             
 
 void setup()
 {
- for (int i = 0; i < 20; i++) {
-    if(i != 2)//just because the button is hooked up to digital pin 2
+ for (int i = 0; i < 20; i++) {                                                     //Pins am ATMega deklarieren, um Strom zu sparen
+    if(i != 2)                                                                    
     pinMode(i, OUTPUT);
   }
 
-  pinMode(0, INPUT);
-  pinMode(1, INPUT);
- // pinMode(Wetterpin, OUTPUT);
-  Serial.begin(9600);
+  pinMode(0, INPUT);                                                                //RX Pin als Eingang deklarieren
+  pinMode(1, INPUT);                                                                //TX Pin als Eingang deklarieren
+  Serial.begin(9600);                                                               //Serial Monitor starten
   
-  ELECHOUSE_cc1101.Init(F_433);
+  ELECHOUSE_cc1101.Init(F_433);                                                     //Funkmodul intialisieren
 
   
-  //SETUP WATCHDOG TIMER
-  WDTCSR = (24);//change enable and WDE - also resets
-  WDTCSR = (33);//prescalers only - get rid of the WDE and WDCE bit
-  WDTCSR |= (1<<6);//enable interrupt mode
+  //Watchdog Timer aufsetzten
+  WDTCSR = (24);
+  WDTCSR = (33);
+  WDTCSR |= (1<<6);                                                                //Aktiviert Interupt Modus
   
-  //Disable ADC - don't forget to flip back after waking up if using ADC in your application ADCSRA |= (1 << 7);
-  ADCSRA &= ~(1 << 7);
   
-  //ENABLE SLEEP - this enables the sleep mode
-  SMCR |= (1 << 2); //power down mode
-  SMCR |= 1;//enable sleep
+  ADCSRA &= ~(1 << 7);                                                             //Deaktiviert analog digital converter
+  
+  //Aktiviert Schlafmodus
+  SMCR |= (1 << 2);                                                                //Power down Modus auswählen
+  SMCR |= 1;                                                                       //Aktiviere Schlafmodus
 
   
-  //BOD DISABLE - this must be called right before the __asm__ sleep instruction
-  MCUCR |= (3 << 5); //set both BODS and BODSE at the same time
-  MCUCR = (MCUCR & ~(1 << 5)) | (1 << 6); //then set the BODS bit and clear the BODSE bit at the same time
-  __asm__  __volatile__("sleep");//in line assembler to go to sleep
+  //BrownOut detection deaktivieren
+  MCUCR |= (3 << 5);                                                               //BrownOut detection deaktivieren
+  MCUCR = (MCUCR & ~(1 << 5)) | (1 << 6);                                          //
+  __asm__  __volatile__("sleep");                                                  //in line assembler um schlafen zu gehen
 }
 void loop()
 {  
-   getBuffer();                                                                      //Begin!
+   getBuffer();                                                                    //Ausgelesene Daten zu einem String zusammenfügen
   String tx_weather = "{\"t\":" +String(Temperature())+"," + "\"h\":" +String(Humidity())+"," + "\"p\":" +String(BarPressure())+"," +"\"r\":" +String(RainfallOneHour())+"," +"\"w\":" +String(WindSpeedAverage())+"," +"\"d\":" +String(WindDirection())+"}\n";
-  int m_lengthweather = tx_weather.length();
+  int m_lengthweather = tx_weather.length();                                       //Stringlänge erkennen
   byte txbyteweather[m_lengthweather];
-  tx_weather.getBytes(txbyteweather, m_lengthweather +1);
-  Serial.println((char *)txbyteweather);
-  Serial.println(m_lengthweather);
-  ELECHOUSE_cc1101.SendData(txbyteweather, m_lengthweather);
-  delay(12999);
+  tx_weather.getBytes(txbyteweather, m_lengthweather +1);                          
+  Serial.println((char *)txbyteweather);                                           //Zwischenwerte im Serial Monitor anzeigen
+  Serial.println(m_lengthweather);                                                 //
+  ELECHOUSE_cc1101.SendData(txbyteweather, m_lengthweather);                       //String über Funkmodul senden
+  delay(12999);                                                                    //Pause
   
-  //BOD DISABLE - this must be called right before the __asm__ sleep instruction
-  MCUCR |= (3 << 5); //set both BODS and BODSE at the same time
-  MCUCR = (MCUCR & ~(1 << 5)) | (1 << 6); //then set the BODS bit and clear the BODSE bit at the same time
-  __asm__  __volatile__("sleep");//in line assembler to go to sleep
+  
+  MCUCR |= (3 << 5);                                                               //BrownOut detection deaktivieren
+  MCUCR = (MCUCR & ~(1 << 5)) | (1 << 6); 
+  __asm__  __volatile__("sleep");                                                  //in line assembler um schlafen zu gehen
 }
 
 
-ISR(WDT_vect){
+ISR(WDT_vect){                                                                     //Interrupt um Arduino kurzzeitig aufzuwecken
 
 
-  //DON'T FORGET THIS!  Needed for the watch dog timer.  This is called after a watch dog timer timeout - this is the interrupt function called after waking up
-}// watchdog interrupt
+  
+}
 

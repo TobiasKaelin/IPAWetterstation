@@ -259,35 +259,34 @@
         Wetter = JSON.parse(Wetter);                                                                           //Gelesender String in Objekt umwandeln
         var tt;                                                                                                //Variable tt erstellen
         for (tt = 0; tt < Wetter.length; tt++){                                                                //Bis zum letzten Eintrag durchzählen
-          TempTime.push([new Date(Wetter[tt].time) , Wetter[tt].t]);                                           //
-          HumTime.push([new Date(Wetter[tt].time) , Wetter[tt].h]);
-          PresTime.push([new Date(Wetter[tt].time) , Wetter[tt].p]);
-          WindTime.push([new Date(Wetter[tt].time) , Wetter[tt].w]);
-          RainTime.push([new Date(Wetter[tt].time) , Wetter[tt].r]);
+          TempTime.push([new Date(Wetter[tt].time) , Wetter[tt].t]);                                           //Timestamp, Temperaturwert zusammenfügen und einfügen
+          HumTime.push([new Date(Wetter[tt].time) , Wetter[tt].h]);                                            //Timestamp,Feuchtigkeit zusammenfügen
+          PresTime.push([new Date(Wetter[tt].time) , Wetter[tt].p]);                                           //Timestamp, Luftdruck zusammenfügen und einfügen
+          WindTime.push([new Date(Wetter[tt].time) , Wetter[tt].w]);                                           //Timestamp, Wind zusammenfügen und einfügen
+          RainTime.push([new Date(Wetter[tt].time) , Wetter[tt].r]);                                           //Timestamp, Regen zusammenfügen und einfügen
           
           
 
   
         }
-  
-        console.log(TempTime)
-        drawTempChart(TempTime);
-        drawHumChart(HumTime);
-        drawPresChart(PresTime);
-        drawWindChart(WindTime);
-        drawRainChart(RainTime);
+
+        drawTempChart(TempTime);                                                                               //Funktion "drawTempChart" ausführen
+        drawHumChart(HumTime);                                                                                 //Funktion "drawHumChart" ausführen
+        drawPresChart(PresTime);                                                                               //Funktion "drawPresChart" ausführen
+        drawWindChart(WindTime);                                                                               //Funktion "drawWindChart" ausführen
+        drawRainChart(RainTime);                                                                               //Funktion "drawRainChart" ausführen
         
-        drawTempLastChart(Wetter[Wetter.length - 1].t);
-        drawHumLastChart(Wetter[Wetter.length - 1].h);
-        drawPresLastChart(Wetter[Wetter.length - 1].p);
-        drawWindLastChart(Wetter[Wetter.length - 1].w);
+        drawTempLastChart(Wetter[Wetter.length - 1].t);                                                        //Funktion "drawTempLastChart" ausführen
+        drawHumLastChart(Wetter[Wetter.length - 1].h);                                                         //Funktion "drawHumLastChart" ausführen
+        drawPresLastChart(Wetter[Wetter.length - 1].p);                                                        //Funktion "drawPresLastChart" ausführen
+        drawWindLastChart(Wetter[Wetter.length - 1].w);                                                        //Funktion "drawWindLastChart" ausführen
 
         
       
       }
     };
   
-    xhttp.open("GET", "http://192.168.2.67/api/full", true);
+    xhttp.open("GET", "http://192.168.2.67/api/full", true);                                                   //Erneuerung auf API Seite darstellen
     xhttp.send();
   }
   
@@ -308,7 +307,7 @@
     float:left;
   }
   .verlauf div {
-    clear: both;
+    clear: both;                                                                                                /*CSS Code um Seite visuell zu gestalten*/    
   }
   div.center{
         text-align: center;
@@ -319,31 +318,31 @@
   
   
   </head>
-  <body bgcolor=#F2F2F2>
+  <body bgcolor=#F2F2F2>                                                                                             <!--Hintergrundfarbe ändern--> 
   
-      <div class="center"><font size = "7">Gesamte Wetterdaten</font><br>
+      <div class="center"><font size = "7">Gesamte Wetterdaten</font><br>                                            <!--Titel, Grösse 7, zentriert-->
         <br>
         <br>
   
           <form>
-            <input type="button" value="Wetterdaten der gesamten Zeit" onclick="window.location.href='http://192.168.2.67/home'" />
+            <input type="button" value="Wetterdaten der gesamten Zeit" onclick="window.location.href='http://192.168.2.67/home'" />             <!--Verlinkung mit Button-->
           </form> 
   
           <form>
-              <input type="button" value="Wetterdaten der letzten Stunde" onclick="window.location.href='http://192.168.2.67/1h'" />
+              <input type="button" value="Wetterdaten der letzten Stunde" onclick="window.location.href='http://192.168.2.67/1h'" />            <!--Verlinkung mit Button-->
             </form> 
             <form>
-                <input type="button" value="Wetterdaten der letzten 24 Stunden" onclick="window.location.href='http://192.168.2.67/24h'" />
+                <input type="button" value="Wetterdaten der letzten 24 Stunden" onclick="window.location.href='http://192.168.2.67/24h'" />     <!--Verlinkung mit Button-->
               </form> 
   <div class="live">
-    <div id="templast_chart_div" ></div>
+    <div id="templast_chart_div" ></div>          <!--Alle Grafiken anzeigen lassen-->
     <div id="humlast_chart_div" ></div>
     <div id="preslast_chart_div" ></div>
     <div id="windlast_chart_div" ></div>
   </div>
   </div>
   <div class="verlauf">
-    <div id="temp_chart_div" ></div>
+    <div id="temp_chart_div" ></div>             
     <div id="hum_chart_div" ></div>
     <div id="pres_chart_div" ></div>
   
@@ -358,6 +357,6 @@
   <br>
   <br>
   <br>
-  <div class="center"><font size ="2">IPA Tobias Kaelin MM15a expert Frank GmbH</font>
+  <div class="center"><font size ="2">IPA Tobias Kaelin MM15a expert Frank GmbH</font>            <!--Fusszeile-->
   </div>
   </body>
