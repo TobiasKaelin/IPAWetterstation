@@ -105,7 +105,7 @@ serial.open(() => {
               obj = JSON.parse(packets[i]);                                                                       //Verwandelt String in Objekt
             } catch(err){                                                                                         // Falls Fehler beim parsen:
               buffer = "";                                                                                        // Buffer leeren
-              console.log("Fehler beim parsen: "+err, packet s[i]);                                                // Benachrichtigung in Konsole
+              console.log("Fehler beim parsen: "+err, packet [i]);                                                // Benachrichtigung in Konsole
               return;                                                         
             }
             obj.time = time
