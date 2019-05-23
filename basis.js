@@ -120,8 +120,6 @@ serial.open(() => {
                   datafromfile = "[]";
                 }
                 var Wetter = JSON.parse(datafromfile);                                                           //Verwandelt Datei von SD Karte in Objekt
-                console.log("Neues Wetter")
-                console.log(obj)
                 Wetter.push(obj)                                                                                 //Fügt neuste Wetterdaten an Objekt an                                      
                 if(Wetter.length > maxentries){                                                                  //Falls Wetterdatei länger als Variable "maxentries"
                   var mentries;
