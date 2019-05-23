@@ -128,6 +128,8 @@ serial.open(() => {
                     console.log("lösche element")                                                                //Benachrichtigung in Konsole
                   }
                 }
+                console.log("Schreibe Wetter")
+              console.log(Wetter)
                 Wetter = JSON.stringify(Wetter);                                                                 //Objekt in String verwandeln
                 fs.writeFile('/home/pi/myjsonfile.json', Wetter, 'utf8', function(err){                          //String in JSON File schreiben
                   if(err){                                                                                       //Falls Fehler:
