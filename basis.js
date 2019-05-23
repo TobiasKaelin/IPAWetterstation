@@ -105,7 +105,7 @@ serial.open(() => {
               obj = JSON.parse(packets[i]);                                                                       //Verwandelt String in Objekt
             } catch(err){                                                                                         // Falls Fehler beim parsen:
               buffer = "";                                                                                        // Buffer leeren
-              console.log("Fehler beim parsen: "+err, packets[i]);                                                // Benachrichtigung in Konsole
+              console.log("Fehler beim parsen: "+err, packet s[i]);                                                // Benachrichtigung in Konsole
               return;                                                         
             }
             obj.time = time
@@ -120,6 +120,8 @@ serial.open(() => {
                   datafromfile = "[]";
                 }
                 var Wetter = JSON.parse(datafromfile);                                                           //Verwandelt Datei von SD Karte in Objekt
+                console.log("Neues Wetter")
+                console.log(Wetter)
                 Wetter.push(obj)                                                                                 //Fügt neuste Wetterdaten an Objekt an                                      
                 if(Wetter.length > maxentries){                                                                  //Falls Wetterdatei länger als Variable "maxentries"
                   var mentries;
@@ -127,9 +129,7 @@ serial.open(() => {
                     Wetter.shift();                                                                              //Lösche ältesten Eintrag
                     console.log("lösche element")                                                                //Benachrichtigung in Konsole
                   }
-                }
-                console.log("Schreibe Wetter")
-              console.log(Wetter)
+                }           
                 Wetter = JSON.stringify(Wetter);                                                                 //Objekt in String verwandeln
                 fs.writeFile('/home/pi/myjsonfile.json', Wetter, 'utf8', function(err){                          //String in JSON File schreiben
                   if(err){                                                                                       //Falls Fehler:
