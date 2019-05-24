@@ -97,7 +97,6 @@ serial.open(() => {
           if(packets[i] !== "" && packets[i] !== " "){
             var time = Date.now();                                                                                  //Aktuelles Datum in Variable schreiben
             
-
            
            
             var obj;                                                                                               //Variable "obj" ertsellen
@@ -111,38 +110,36 @@ serial.open(() => {
             obj.time = time
                                                                                         
             console.log("Daten erfolgreich Empfangen: ", obj);
-        
-            fs.readFile('/home/pi/myjsonfile.json', "utf-8", function(err, datafromfile) {                       //Lese Datei von SD Karte
-              if (err) {                                                                                         //Falls Fehler:
-                console.log("Datei konnte nicht gelesen werden: "+err);                                          //Benachrichtigung in Konsole und Fehlercode
-              } else {                                                                                           //ansonsten
-                if(datafromfile == ""){
-                  datafromfile = "[]";
+
+            if(obj.t < 50 && obj.t > -50 && obj.h > 0){
+              fs.readFile('/home/pi/myjsonfile.json', "utf-8", function(err, datafromfile) {                       //Lese Datei von SD Karte
+                if (err) {                                                                                         //Falls Fehler:
+                  console.log("Datei konnte nicht gelesen werden: "+err);                                          //Benachrichtigung in Konsole und Fehlercode
+                } else {                                                                                           //ansonsten
+                  if(datafromfile == ""){
+                    datafromfile = "[]";
+                  }
+                  var Wetter = JSON.parse(datafromfile);                                                           //Verwandelt Datei von SD Karte in Objekt
+                  Wetter.push(obj)                                                                                 //Fügt neuste Wetterdaten an Objekt an                                      
+                  if(Wetter.length > maxentries){                                                                  //Falls Wetterdatei länger als Variable "maxentries"
+                    var mentries;
+                    for (mentries = maxentries; mentries <= Wetter.length; mentries++){                            //Gehe zum ältesten Eintrag
+                      Wetter.shift();                                                                              //Lösche ältesten Eintrag
+                      console.log("lösche element")                                                                //Benachrichtigung in Konsole
+                    }
+                  }           
+                  Wetter = JSON.stringify(Wetter);                                                                 //Objekt in String verwandeln
+                  fs.writeFile('/home/pi/myjsonfile.json', Wetter, 'utf8', function(err){                          //String in JSON File schreiben
+                    if(err){                                                                                       //Falls Fehler:
+                      console.log("Datei konnte nicht geschrieben werden: "+err);                                  //Benachrichtigung in Konsole und Fehlercode
+                    } else {                                                                                       //Ansonsten
+
+                      console.log("Datei erfolgreich geschrieben")                                                 //Benachrichtigung in Konsole
+                    }
+                  });
                 }
-                var Wetter = JSON.parse(datafromfile);                                                           //Verwandelt Datei von SD Karte in Objekt
-                Wetter.push(obj)                                                                                 //Fügt neuste Wetterdaten an Objekt an                                      
-                if(Wetter.length > maxentries){                                                                  //Falls Wetterdatei länger als Variable "maxentries"
-                  var mentries;
-                  for (mentries = maxentries; mentries <= Wetter.length; mentries++){                            //Gehe zum ältesten Eintrag
-                    Wetter.shift();                                                                              //Lösche ältesten Eintrag
-                    console.log("lösche element")                                                                //Benachrichtigung in Konsole
-                  }
-                }           
-                Wetter = JSON.stringify(Wetter);                                                                 //Objekt in String verwandeln
-                fs.writeFile('/home/pi/myjsonfile.json', Wetter, 'utf8', function(err){                          //String in JSON File schreiben
-                  if(err){                                                                                       //Falls Fehler:
-                    console.log("Datei konnte nicht geschrieben werden: "+err);                                  //Benachrichtigung in Konsole und Fehlercode
-                  } else {                                                                                       //Ansonsten
-
-                    console.log("Datei erfolgreich geschrieben")                                                 //Benachrichtigung in Konsole
-                  }
-                });
-                
-
-
-              }
-            });
-          
+              });
+            }
           }
         }
         var leftover = "";                                        //Definiere leere Variable
